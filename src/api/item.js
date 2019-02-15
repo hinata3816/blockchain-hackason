@@ -40,3 +40,14 @@ export function addFile(data) {
     data
   })
 }
+
+/**
+ * 验证项目的key
+ */
+export function verifyKey(data) {
+  return request({
+    url: '/Project/verifyKey',
+    method: 'post',
+    data
+  })
+}
