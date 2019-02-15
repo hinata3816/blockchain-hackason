@@ -87,6 +87,37 @@ export const constantRouterMap = [
       }
     ]
   },
+    // 项目
+    {
+      path: '/item',
+      name: 'item',
+      redirect: '/item/index',
+      component: Layout,
+      meta: { title: '项目管理', icon: 'table' },
+      children: [
+        {
+          path: 'index',
+          name: 'itemList',
+          hidden: true,
+          meta: { title: '列表', icon: 'form' },
+          component: () => import('@/views/item/index')
+        },
+        {
+          path: 'add',
+          name: 'itemAdd',
+          hidden: true,
+          meta: { title: '添加新项目', icon: 'form' },
+          component: () => import('@/views/item/add')
+        },
+        {
+          path: 'detail/:id',
+          name: 'itemDetail',
+          hidden: true,
+          meta: { title: '详情', icon: 'form' },
+          component: () => import('@/views/item/detail/index')
+        },
+      ]
+    },
 
   // {
   //   path: 'external-link',
