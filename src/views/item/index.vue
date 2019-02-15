@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <!-- 只有主催者可以点击添加项目 -->
-    <el-card style="margin-bottom: 20px;">
+    <el-card v-if="roles == 'sponsor'" style="margin-bottom: 20px;">
       <div class="btns"><el-button type="primary" size="small" class="m-b-20" @click="$router.push(`add`)">添加项目</el-button></div>
     </el-card>
     <Table :dataSource="getList">
@@ -20,25 +20,26 @@
         <el-table-column label="项目名称" align="center">
           <template slot-scope="scope">
             <!-- 如果是研究者点击项目详情的时候需要输入key才可以访问项目进行上传文件,主催者可以直接进入 -->
-            <router-link target="_blank" :to="{ name: 'itemDetail', params: { id: scope.row.index }}">{{ scope.row.login_name }}</router-link>
-            <el-button type="text" @click="open(scope.row.index)">点击打开 Message Box</el-button>
+            <span  v-if="roles == 'investigator'" ><el-button type="text" @click="open(scope.row.id)">{{ scope.row.project_name }}</el-button></span>
+            <router-link v-else target="_blank" :to="{ name: 'itemDetail', params: { id: scope.row.id }}">{{ scope.row.project_name }}</router-link>
           </template>
         </el-table-column>
         <!-- 只有主催者可以看到key并复制给其他用户 -->
-        <el-table-column align="center" prop="created_at" label="key">
+        <el-table-column v-if="roles == 'sponsor'" align="center" prop="created_at" label="key">
           <template slot-scope="scope">
-            <i class="el-icon-time"/>
-            <span>{{ scope.row.index }}</span>
+            <span>{{ scope.row.key }}</span>
           </template>
         </el-table-column>
         <el-table-column label="研究者" align="center">
           <template slot-scope="scope">
-            <span>{{ scope.row.login_name }}</span>
+            <span>{{ scope.row.loginName }}</span>
           </template>
         </el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
-            <span>{{ scope.row.login_name }}</span>
+            <span v-if = "scope.row.status == 0">完善资料中</span>
+            <span v-else-if = "scope.row.status == 1">公开</span>
+            <span v-else>未知状态</span>
           </template>
         </el-table-column>
       </el-table>
@@ -47,12 +48,18 @@
 </template>
 
 <script>
-import { getList } from '@/api/redBag'
+import { getList } from '@/api/item'
 import Table from '@/components/Table'
+import { mapGetters } from 'vuex'
+
 
 export default {
   components: {
-    Table
+    Table,
+    ...mapGetters([
+      'name',
+      'roles'
+    ])
   },
   filters: {
     statusFilter(status) {

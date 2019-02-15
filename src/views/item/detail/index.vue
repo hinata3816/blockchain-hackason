@@ -20,7 +20,7 @@
           </el-table-column>
           <el-table-column label="文件名称" align="left">
             <template slot-scope="scope">
-              <router-link target="_blank" :to="{ name: 'itemDetail', params: { id: scope.row.index }}">{{ scope.row.login_name }}</router-link>
+              <router-link :to="{ name: 'itemDetail', params: { id: scope.row.index }}" target="_blank">{{ scope.row.login_name }}</router-link>
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center" width="200">
@@ -36,7 +36,6 @@
 
 <script>
 import { getList } from '@/api/redBag'
-import { uploadFile } from '@/api/ipfs'
 import Table from '@/components/Table'
 import uploadDialog from './uploadDialog'
 
@@ -76,8 +75,8 @@ export default {
     },
     open(hash) {
       window.open(`http://localhost:8080/ipfs/${hash}`)
-    },
-  },
+    }
+  }
 }
 </script>
 
