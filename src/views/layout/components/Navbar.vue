@@ -2,7 +2,7 @@
   <el-menu class="navbar" mode="horizontal">
     <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
     <breadcrumb />
-    <el-dropdown class="avatar-container" trigger="click">
+    <el-dropdown v-if="token" class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
         <img src="@/assets/images/avatar.jpg" class="user-avatar">
         <i class="el-icon-caret-bottom"/>
@@ -18,6 +18,9 @@
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
+    <div v-else class="avatar-container avatar-wrapper" style="cursor: pointer;" @click="$router.push('/login')">
+      登录
+    </div>
   </el-menu>
 </template>
 
@@ -34,7 +37,8 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'avatar',
+      'token'
     ])
   },
   methods: {
