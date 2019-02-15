@@ -32,6 +32,7 @@ const user = {
         login(username, userInfo.password).then(response => {
           const data = response.data
           setToken(data.session_id)
+          localStorage.setItem('userInfo', data)
           commit('SET_TOKEN', data.session_id)
           resolve()
         }).catch(error => {
