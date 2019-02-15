@@ -42,7 +42,7 @@
           </el-table-column>
           <el-table-column label="操作" align="center" width="200">
             <template slot-scope="scope">
-              <el-button type="primary" size="mini"  @click="open(scope.row.hash)" >查看</el-button>
+              <el-button type="text" size="mini"  @click="open(scope.row.hash)" >查看</el-button>
             </template>
           </el-table-column>
         </el-table>

@@ -1,55 +1,55 @@
 <template>
   <div class="app-container">
     <!-- 只有主催者可以点击添加项目 -->
-    <el-card v-if="roles == 'sponsor'" style="margin-bottom: 20px;">
-      <div class="btns"><el-button type="primary" size="small" class="m-b-20" @click="$router.push(`add`)">添加项目</el-button></div>
-    </el-card>
-    <Table :dataSource="getList">
-      <el-table
-        slot-scope="data"
-        :data="data.tableData"
-        element-loading-text="Loading"
-        border
-        fit
-        highlight-current-row>
-        <el-table-column align="center" label="序号" width="50">
-          <template slot-scope="scope">
-            {{ scope.$index }}
-          </template>
-        </el-table-column>
-        <el-table-column label="项目名称" align="center">
-          <template slot-scope="scope">
-            <!-- 如果是研究者点击项目详情的时候需要输入key才可以访问项目进行上传文件,主催者可以直接进入 -->
-            <el-button  v-if="roles == 'investigator'" type="text" @click="open(scope.row.id)">{{ scope.row.project_name }}</el-button>
-            <!-- <el-button type="text" @click="open(scope.row.id)">{{ scope.row.project_name }}</el-button> -->
-            <router-link v-else target="_blank" :to="{ name: 'itemDetail', params: { id: scope.row.id }}">{{ scope.row.project_name }}</router-link>
-          </template>
-        </el-table-column>
-        <!-- 只有主催者可以看到key并复制给其他用户 -->
-        <el-table-column v-if="roles == 'sponsor'" align="center" prop="created_at" label="key">
-          <template slot-scope="scope">
-            <span>{{ scope.row.key }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="研究者" align="center">
-          <template slot-scope="scope">
-            <span>{{ scope.row.loginName }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <span v-if = "scope.row.status == 0">完善资料中</span>
-            <span v-else-if = "scope.row.status == 1">公开</span>
-            <span v-else>未知状态</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" align="center">
+    <el-card  style="margin-bottom: 20px;">
+      <div v-if="roles == 'sponsor'" class="btns"><el-button type="primary" size="small" class="m-b-20" @click="$router.push(`add`)">添加项目</el-button></div>
+      <Table :dataSource="getList">
+        <el-table
+          slot-scope="data"
+          :data="data.tableData"
+          element-loading-text="Loading"
+          border
+          fit
+          highlight-current-row>
+          <el-table-column align="center" label="序号" width="50">
             <template slot-scope="scope">
-              <router-link target="_blank" :to="{ name: 'itemDetail', params: { id: scope.row.id }}"><el-button type="text" size="small">查看</el-button></router-link>
+              {{ scope.$index }}
             </template>
-        </el-table-column>
-      </el-table>
-    </Table>
+          </el-table-column>
+          <el-table-column label="项目名称" align="center">
+            <template slot-scope="scope">
+              {{ scope.row.project_name }}
+            </template>
+          </el-table-column>
+          <!-- 只有主催者可以看到key并复制给其他用户 -->
+          <el-table-column v-if="roles == 'sponsor'" align="center" prop="created_at" label="key">
+            <template slot-scope="scope">
+              <span>{{ scope.row.key }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="研究者" align="center">
+            <template slot-scope="scope">
+              <span>{{ scope.row.loginName }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="状态" align="center">
+            <template slot-scope="scope">
+              <span v-if = "scope.row.status == 0">完善资料中</span>
+              <span v-else-if = "scope.row.status == 1">公开</span>
+              <span v-else>未知状态</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" align="center">
+              <template slot-scope="scope">
+                <el-button  v-if="roles == 'investigator'" type="text" size="small" @click="open(scope.row.id)">查看</el-button>
+                <router-link v-else target="_blank" :to="{ name: 'itemDetail', params: { id: scope.row.id }}">
+                  <el-button  v-if="roles == 'investigator'" type="text" size="small" >查看</el-button>
+                </router-link>
+              </template>
+          </el-table-column>
+        </el-table>
+      </Table>
+    </el-card>
   </div>
 </template>
 
@@ -117,10 +117,6 @@ export default {
         })
       }).catch((err) => {
         // debugger
-        this.$message({
-          type: 'info',
-          message: '取消输入'
-        })
       })
     }
   },
