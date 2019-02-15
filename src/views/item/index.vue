@@ -43,6 +43,11 @@
             <span v-else>未知状态</span>
           </template>
         </el-table-column>
+        <el-table-column label="操作" align="center">
+            <template slot-scope="scope">
+              <router-link target="_blank" :to="{ name: 'itemDetail', params: { id: scope.row.id }}"><el-button type="text" size="small">查看</el-button></router-link>
+            </template>
+        </el-table-column>
       </el-table>
     </Table>
   </div>
@@ -74,7 +79,9 @@ export default {
       return statusMap[status]
     }
   },
-  mounted() {},
+  mounted() {
+    console.log(111111, this.roles)
+  },
   methods: {
     getList(params) {
       return getList(params).then((res) => {
@@ -100,7 +107,7 @@ export default {
         if (!value) {
           return this.$message.error('请输入项目key！')
         }
-        return verifyKey(data).then((res) => {
+        verifyKey(data).then((res) => {
           if (Number(res.code) === 0) {
             this.$message.success(res.msg)
             this.$router.push({ name: 'itemDetail', params: { id: id }})
@@ -109,9 +116,10 @@ export default {
           }
         })
       }).catch((err) => {
+        // debugger
         this.$message({
           type: 'info',
-          message: '取消输入' + err
+          message: '取消输入'
         })
       })
     }

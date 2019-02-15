@@ -34,59 +34,10 @@ export const constantRouterMap = [
     hidden: false,
     children: [{
       path: 'dashboard',
-      meta: { title: '首页', icon: 'dashboard' },
-      component: () => import('@/views/dashboard/index')
+      meta: { title: '首页', icon: 'dashboard' }
     }]
   },
 
-  // 持证人管理
-  {
-    path: '/userManage',
-    redirect: '/userManage/index',
-    component: Layout,
-    name: 'UserManage',
-    meta: { title: '持证人管理', icon: 'user' },
-    children: [
-      {
-        path: 'index',
-        name: 'userList',
-        hidden: true,
-        meta: { title: '列表', icon: 'table' },
-        component: () => import('@/views/userManage/index')
-      }
-      // {
-      //   path: 'tree',
-      //   name: 'Tree',
-      //   component: () => import('@/views/tree/index'),
-      //   meta: { title: 'Tree', icon: 'tree' }
-      // }
-    ]
-  },
-
-  // 红包
-  {
-    path: '/redBag',
-    name: 'redBag',
-    redirect: '/redBag/index',
-    component: Layout,
-    meta: { title: '红包管理', icon: 'table' },
-    children: [
-      {
-        path: 'index',
-        name: 'list',
-        hidden: true,
-        meta: { title: '列表', icon: 'form' },
-        component: () => import('@/views/redBag/index')
-      },
-      {
-        path: 'detail/:index',
-        name: 'redBagDetail',
-        hidden: true,
-        meta: { title: '详情', icon: 'form' },
-        component: () => import('@/views/redBag/detail/index')
-      }
-    ]
-  },
   // 项目
   {
     path: '/item',
@@ -118,17 +69,6 @@ export const constantRouterMap = [
       }
     ]
   },
-
-  // {
-  //   path: 'external-link',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-  //       meta: { title: 'External Link', icon: 'link' }
-  //     }
-  //   ]
-  // },
 
   { path: '*', redirect: '/404', hidden: true }
 ]

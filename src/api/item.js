@@ -48,6 +48,15 @@ export function verifyKey(data) {
   return request({
     url: '/Project/verifyKey',
     method: 'post',
-    data
+    data})
+  }
+  /**
+   * 获取用户列表
+   */
+export function resourcesList(params) {
+  return request({
+    url: '/Project/resourcesList',
+    method: 'get',
+    params
   })
 }
