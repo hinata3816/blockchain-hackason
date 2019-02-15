@@ -51,7 +51,6 @@ export default {
   methods: {
     // 提交表单
     async onSubmit() {
-      console.log('submit!');
       const data = {
         hash: this.form.file.hash,
         size: this.form.file.size,
@@ -71,6 +70,12 @@ export default {
       }
       const res = await addFile(data)
       if (res.code === 0) {
+        this.form.file.hash = ''
+        this.form.file.name = ''
+        this.form.type = ''
+        this.form.desc = ''
+        this.$refs.form.resetFields()
+        this.dialogVisible = false
         this.$emit('refresh')
       }
     },

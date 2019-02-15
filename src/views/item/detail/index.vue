@@ -5,7 +5,7 @@
         <el-button type="primary" size="small" class="m-b-20" @click="handleAddFileBtnClick">添加材料</el-button>
         <uploadDialog ref="uploadDialog" @refresh="refreshList" />
       </div>
-      <Table :dataSource="getList">
+      <Table :dataSource="resourcesList" ref="table">
         <el-table
           slot-scope="data"
           :data="data.tableData"
@@ -18,14 +18,30 @@
               {{ scope.$index }}
             </template>
           </el-table-column>
-          <el-table-column label="文件名称" align="left">
+          <el-table-column label="文件名称" align="left" width="200">
             <template slot-scope="scope">
-              <router-link :to="{ name: 'itemDetail', params: { id: scope.row.index }}" target="_blank">{{ scope.row.login_name }}</router-link>
+              {{ scope.row.title }}
+            </template>
+          </el-table-column>
+          <el-table-column label="描述" align="left">
+            <template slot-scope="scope">
+              {{ scope.row.description }}
+            </template>
+          </el-table-column>
+          <el-table-column label="文件类型" align="center" width="200">
+            <template slot-scope="scope">
+              {{ scope.row.type | typeMap }}
+            </template>
+          </el-table-column>
+          <el-table-column label="上传时间" align="center" width="200">
+            <template slot-scope="scope">
+              <i class="el-icon-time"/>
+              <span>{{ scope.row.create_time }}</span>
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center" width="200">
             <template slot-scope="scope">
-              <el-button type="primary" size="mini"  @click="open('QmfMZ5fVBhkdXiohmC6mZAyjcEuayt6Sd3g7aLX81khcdi')" >查看</el-button>
+              <el-button type="primary" size="mini"  @click="open(scope.row.hash)" >查看</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -35,7 +51,7 @@
 </template>
 
 <script>
-import { getList } from '@/api/redBag'
+import { resourcesList } from '@/api/item'
 import Table from '@/components/Table'
 import uploadDialog from './uploadDialog'
 
@@ -45,13 +61,13 @@ export default {
     uploadDialog
   },
   filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
+    typeMap(type) {
+      const typeMap = {
+        0: '研究笔记',
+        1: '研究数据',
+        2: '操作履历'
       }
-      return statusMap[status]
+      return typeMap[type] || type
     }
   },
   methods: {
@@ -60,9 +76,10 @@ export default {
     },
     refreshList() {
       console.log(12312312)
+      this.$refs.table.changePage(1)
     },
-    getList(params) {
-      return getList(params).then((res) => {
+    resourcesList(params) {
+      return resourcesList({ ...params, projectId: this.$route.params.id}).then((res) => {
         if (Number(res.code) === 0) {
           return {
             total: res.total,

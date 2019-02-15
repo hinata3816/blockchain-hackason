@@ -73,7 +73,9 @@ export default {
       return statusMap[status]
     }
   },
-  mounted() {},
+  mounted() {
+    console.log(111111, this.roles)
+  },
   methods: {
     getList(params) {
       return getList(params).then((res) => {
