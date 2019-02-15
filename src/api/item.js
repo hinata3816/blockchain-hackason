@@ -12,22 +12,21 @@ export function getList(params) {
 /**
  * 添加项目
  */
-export function getDetail(params) {
+export function addProject(data) {
   return request({
-    url: '/Main/redEnvelopesInfo',
-    method: 'get',
-    params
+    url: '/Project/addProject',
+    method: 'post',
+    data
   })
 }
 
 /**
  * 获取用户列表
  */
-export function getUserList(params) {
+export function getUserList() {
   return request({
-    url: '/Main/redEnvelopesInfo',
-    method: 'get',
-    params
+    url: '/User/selectInvestigator',
+    method: 'get'
   })
 }
 
