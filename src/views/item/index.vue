@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <!-- 只有主催者可以点击添加项目 -->
     <el-card style="margin-bottom: 20px;">
         <div class="btns"><el-button type="primary" @click="$router.push(`add`)">添加项目</el-button></div>
     </el-card>
@@ -16,30 +17,28 @@
             {{ scope.$index }}
           </template>
         </el-table-column>
-        <el-table-column label="项目名称" width="200" align="center">
+        <el-table-column label="项目名称" align="center">
           <template slot-scope="scope">
+            <!-- 如果是研究者点击项目详情的时候需要输入key才可以访问项目进行上传文件,主催者可以直接进入 -->
             <router-link target="_blank" :to="{ name: 'itemDetail', params: { id: scope.row.index }}">{{ scope.row.login_name }}</router-link>
+            <el-button type="text" @click="open(scope.row.index)">点击打开 Message Box</el-button>
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="created_at" label="key" width="400">
+        <!-- 只有主催者可以看到key并复制给其他用户 -->
+        <el-table-column align="center" prop="created_at" label="key">
           <template slot-scope="scope">
             <i class="el-icon-time"/>
             <span>{{ scope.row.index }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="研究者" width="200" align="center">
+        <el-table-column label="研究者" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.login_name }}</span>
           </template>
         </el-table-column>
-         <el-table-column label="状态" width="100" align="center">
+         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.login_name }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" align="center">
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini"  @click="open(scope.index)" >公开</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -78,34 +77,23 @@ export default {
         return {}
       })
     },
-    open(row) {
-      this.$confirm(
-        '<strong>确定要公开此项目么？</strong><div style="color:#C0C0C0">公开后，所有用户均可查看</div>',
-        "公开项目",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          dangerouslyUseHTMLString: true
-        }
-      )
-        .then(() => {
-          // const params = {
-          //   uIds: row.id,
-          // };
-          //console.log(params);
-          // return freezeUser(params).then(res => {
-          //   if (Number(res.code) === 0) {
-              this.$message.success("公开成功");
-          //     this.$refs.table.fetchData();
-          //   } else {
-          //     this.$message.error(res.msg);
-          //   }
-          // });
-        })
-        .catch(() => {
-          this.$message.info("已取消公开");
-        });
-    },
+    open(index) {
+      this.$prompt('请输入项目Key', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(({ value }) => {
+        // this.$message({
+        //   type: 'success',//error
+        //   message: '你的邮箱是: ' + value
+        // });
+        this.$router.push({ name: 'itemDetail', params: { id: '123' }})
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消输入'
+        });       
+      });
+    }
   },
 }
 </script>
