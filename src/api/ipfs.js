@@ -7,7 +7,7 @@ export function uploadFile(blob) {
     toBuffer(blob, (err, buffer) => {
       if (err) throw err
       ipfs.add({
-        path: `/${blob.name}`,
+        path: `${blob.name}`,
         content: buffer
       }, {
         wrapWithDirectory: true
