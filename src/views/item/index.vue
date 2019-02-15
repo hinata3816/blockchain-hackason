@@ -3,6 +3,7 @@
     <!-- 只有主催者可以点击添加项目 -->
     <el-card style="margin-bottom: 20px;">
       <div class="btns"><el-button type="primary" size="small" class="m-b-20" @click="$router.push(`add`)">添加项目</el-button></div>
+    </el-card>
       <Table :dataSource="getList">
         <el-table
           slot-scope="data"
