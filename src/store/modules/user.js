@@ -32,8 +32,9 @@ const user = {
         login(username, userInfo.password).then(response => {
           const data = response.data
           setToken(data.session_id)
-          localStorage.setItem('userInfo', data)
+          localStorage.setItem('userInfo', JSON.stringify(data))
           commit('SET_TOKEN', data.session_id)
+          commit('SET_ROLES', data.identity)
           resolve()
         }).catch(error => {
           reject(error)

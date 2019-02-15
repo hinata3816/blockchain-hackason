@@ -21,6 +21,17 @@ export function getDetail(params) {
 }
 
 /**
+ * 获取用户列表
+ */
+export function getUserList(params) {
+  return request({
+    url: '/Main/redEnvelopesInfo',
+    method: 'get',
+    params
+  })
+}
+
+/**
  * 添加文件
  */
 export function addFile(data) {
