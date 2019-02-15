@@ -2,24 +2,24 @@
   <div>
     <el-form ref="form" :model="form" label-width="80px">
       <el-dialog
-        title="添加文件"
         :visible.sync="dialogVisible"
+        title="添加文件"
         width="30%">
-          <el-form-item label="上传文件">
-            <el-button v-if="!form.file.name" type="primary" size="small" @click="handleAddFileBtnClick">上传</el-button>
-            <span v-else @click="handleAddFileBtnClick" style="cursor: pointer">{{form.file.name}}</span>
-            <input type="file" @change="handleFileInputChange" ref="fileInput" style="display: none">
-          </el-form-item>
-          <el-form-item label="类型">
-            <el-radio-group v-model="form.type">
-              <el-radio label="0">研究笔记</el-radio>
-              <el-radio label="1">研究数据</el-radio>
-              <el-radio label="2">操作履历</el-radio>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item label="活动形式" prop="desc">
-            <el-input type="textarea" v-model="form.desc" :autosize="{ minRows: 4, maxRows: 8}"></el-input>
-          </el-form-item>
+        <el-form-item label="上传文件">
+          <el-button v-if="!form.file.name" type="primary" size="small" @click="handleAddFileBtnClick">上传</el-button>
+          <span v-else @click="handleAddFileBtnClick" style="cursor: pointer">{{form.file.name}}</span>
+          <input type="file" @change="handleFileInputChange" ref="fileInput" style="display: none">
+        </el-form-item>
+        <el-form-item label="类型">
+          <el-radio-group v-model="form.type">
+            <el-radio label="0">研究笔记</el-radio>
+            <el-radio label="1">研究数据</el-radio>
+            <el-radio label="2">操作履历</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="活动形式" prop="desc">
+          <el-input type="textarea" v-model="form.desc" :autosize="{ minRows: 4, maxRows: 8}"></el-input>
+        </el-form-item>
         <span slot="footer" class="dialog-footer">
           <el-button size="small" @click="dialogVisible = false">取 消</el-button>
           <el-button type="primary" size="small" @click="onSubmit">确 定</el-button>

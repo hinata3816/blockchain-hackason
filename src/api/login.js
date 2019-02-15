@@ -5,12 +5,11 @@ import request from '@/utils/request'
  */
 export function login(loginName, password) {
   return request({
-    url: '/Main/login',
+    url: '/User/login',
     method: 'post',
     data: {
       loginName,
-      password,
-      admin: 1
+      password
     }
   })
 }
