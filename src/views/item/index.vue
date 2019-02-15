@@ -20,7 +20,8 @@
         <el-table-column label="项目名称" align="center">
           <template slot-scope="scope">
             <!-- 如果是研究者点击项目详情的时候需要输入key才可以访问项目进行上传文件,主催者可以直接进入 -->
-            <span  v-if="roles == 'investigator'" ><el-button type="text" @click="open(scope.row.id)">{{ scope.row.project_name }}</el-button></span>
+            <el-button  v-if="roles == 'investigator'" type="text" @click="open(scope.row.id)">{{ scope.row.project_name }}</el-button>
+            <!-- <el-button type="text" @click="open(scope.row.id)">{{ scope.row.project_name }}</el-button> -->
             <router-link v-else target="_blank" :to="{ name: 'itemDetail', params: { id: scope.row.id }}">{{ scope.row.project_name }}</router-link>
           </template>
         </el-table-column>
@@ -42,13 +43,18 @@
             <span v-else>未知状态</span>
           </template>
         </el-table-column>
+        <el-table-column label="操作" align="center">
+            <template slot-scope="scope">
+              <router-link target="_blank" :to="{ name: 'itemDetail', params: { id: scope.row.id }}"><el-button type="text" size="small">查看</el-button></router-link>
+            </template>
+        </el-table-column>
       </el-table>
     </Table>
   </div>
 </template>
 
 <script>
-import { getList } from '@/api/item'
+import { getList,verifyKey} from '@/api/item'
 import Table from '@/components/Table'
 import { mapGetters } from 'vuex'
 
@@ -89,17 +95,28 @@ export default {
         return {}
       })
     },
-    open(index) {
+    open(id) {
       this.$prompt('请输入项目Key', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
       }).then(({ value }) => {
-        // this.$message({
-        //   type: 'success',//error
-        //   message: '你的邮箱是: ' + value
-        // })
-        this.$router.push({ name: 'itemDetail', params: { id: '123' }})
-      }).catch(() => {
+        const data = {
+          projectId: id,
+          key: value
+        }
+        if (!value) {
+          return this.$message.error('请输入项目key！')
+        }
+        verifyKey(data).then((res) => {
+          if (Number(res.code) === 0) {
+            this.$message.success(res.msg)
+            this.$router.push({ name: 'itemDetail', params: { id: id }})
+          }else {
+            this.$message.error(res.msg)
+          }
+        })
+      }).catch((err) => {
+        // debugger
         this.$message({
           type: 'info',
           message: '取消输入'
