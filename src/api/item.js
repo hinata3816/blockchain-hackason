@@ -51,3 +51,14 @@ export function resourcesList(params) {
     params
   })
 }
+
+/**
+ * 公开项目
+ */
+export function projectPublic(data) {
+  return request({
+    url: '/Project/projectPublic',
+    method: 'post',
+    data
+  })
+}

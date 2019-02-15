@@ -2,7 +2,8 @@
   <div class="app-container">
     <el-card style="margin-bottom: 20px;">
       <div class="btns">
-        <el-button type="primary" size="small" class="m-b-20" @click="handleAddFileBtnClick">添加材料</el-button>
+        <el-button v-if="roles == 'investigator' && this.projectInfo.status == 0" type="primary" size="small" class="m-b-20" @click="handleAddFileBtnClick">添加材料</el-button>
+        <el-button v-else-if="roles == 'sponsor' && this.projectInfo.status == 0" type="primary" size="small" class="m-b-20" @click="handlePublicProjectBtnClick">结束并公开项目</el-button>
         <uploadDialog ref="uploadDialog" @refresh="refreshList" />
       </div>
       <Table :dataSource="resourcesList" ref="table">
@@ -51,14 +52,20 @@
 </template>
 
 <script>
-import { resourcesList } from '@/api/item'
+import { resourcesList, projectPublic } from '@/api/item'
 import Table from '@/components/Table'
 import uploadDialog from './uploadDialog'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     Table,
     uploadDialog
+  },
+  data () {
+    return {
+      projectInfo: {}
+    }
   },
   filters: {
     typeMap(type) {
@@ -70,7 +77,17 @@ export default {
       return typeMap[type] || type
     }
   },
+  computed: {
+    ...mapGetters([
+      'name',
+      'roles'
+    ])
+  },
   methods: {
+    async handlePublicProjectBtnClick() {
+      await projectPublic({ id: this.$route.params.id })
+      this.$message.success('操作成功！')
+    },
     handleAddFileBtnClick() {
       this.$refs.uploadDialog.dialogVisible = true
     },
@@ -81,6 +98,7 @@ export default {
     resourcesList(params) {
       return resourcesList({ ...params, projectId: this.$route.params.id}).then((res) => {
         if (Number(res.code) === 0) {
+          this.projectInfo = res.projectInfo
           return {
             total: res.total,
             results: res.data
