@@ -1,5 +1,6 @@
 import request from '@/utils/request'
-//获取项目信息
+
+// 获取项目信息
 export function getList(params) {
   return request({
     url: '/Project/projectList',
@@ -16,5 +17,16 @@ export function getDetail(params) {
     url: '/Main/redEnvelopesInfo',
     method: 'get',
     params
+  })
+}
+
+/**
+ * 添加文件
+ */
+export function addFile(data) {
+  return request({
+    url: '/Project/operateHash',
+    method: 'post',
+    data
   })
 }

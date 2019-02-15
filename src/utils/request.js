@@ -5,7 +5,7 @@ import { getToken } from '@/utils/auth'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: '/ipfs/public/index.php/home',
+  baseURL: '/project01/public/index.php/index',
   timeout: 10000 // 请求超时时间
 })
 

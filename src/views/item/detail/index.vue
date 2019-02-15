@@ -3,7 +3,7 @@
     <el-card style="margin-bottom: 20px;">
       <div class="btns">
         <el-button type="primary" size="small" class="m-b-20" @click="handleAddFileBtnClick">添加材料</el-button>
-        <uploadDialog ref="uploadDialog" />
+        <uploadDialog ref="uploadDialog" @refresh="refreshList" />
       </div>
       <Table :dataSource="getList">
         <el-table
@@ -57,6 +57,9 @@ export default {
   methods: {
     handleAddFileBtnClick() {
       this.$refs.uploadDialog.dialogVisible = true
+    },
+    refreshList() {
+      console.log(12312312)
     },
     getList(params) {
       return getList(params).then((res) => {

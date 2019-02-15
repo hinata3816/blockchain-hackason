@@ -10,8 +10,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/ipfs': {
-        target: 'http://hash.iptokenmain.com',
+      '/': {
+        target: 'http://newtest.mboxone.com',
         changeOrigin: true
       }
     },
