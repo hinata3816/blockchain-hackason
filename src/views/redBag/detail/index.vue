@@ -11,7 +11,8 @@
             <dd>{{ detail.hbInfo.login_name }}</dd>
             <dt>链接：</dt>
             <dd>
-              <el-button type="primary" size="mini" @click="copyToClipboard(detail.hbInfo.link)" >复制</el-button>
+              <el-button type="primary" size="mini" @click="copyToClipboard" >复制</el-button>
+              <input type="file" @change="handleFileChange" ref="file" style="display: none">
             </dd>
           </dl>
         </el-col>
@@ -39,6 +40,7 @@
 
 <script>
 import { getDetail } from '@/api/redBag'
+import { uploadFile } from '@/api/ipfs'
 import RecordList from './recordList'
 
 export default {
@@ -63,17 +65,16 @@ export default {
     this.getDetail()
   },
   methods: {
-    copyToClipboard(text) {
-      if (!text) return
-      const input = document.createElement('input')
-      document.body.appendChild(input)
-      input.setAttribute('value', text)
-      input.select()
-      if (document.execCommand('copy')) {
-        document.execCommand('copy')
-        this.$message.success('复制成功！')
-      }
-      document.body.removeChild(input)
+    copyToClipboard() {
+      console.log(this)
+      this.$refs.file.click()
+    },
+    handleFileChange (e) {
+      const file = e.target.files[0]
+      console.log(file)
+      uploadFile(file).then(res => {
+        console.log(res)
+      }) 
     },
     async getDetail() {
       this.loading = true
