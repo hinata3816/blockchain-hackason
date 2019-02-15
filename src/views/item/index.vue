@@ -55,7 +55,9 @@ import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    Table,
+    Table
+  },
+  computed: {
     ...mapGetters([
       'name',
       'roles'
@@ -71,6 +73,7 @@ export default {
       return statusMap[status]
     }
   },
+  mounted() {},
   methods: {
     getList(params) {
       return getList(params).then((res) => {
