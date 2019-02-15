@@ -2,7 +2,7 @@ import request from '@/utils/request'
 //获取项目信息
 export function getList(params) {
   return request({
-    url: '/Main/redEnvelopesList',
+    url: '/Project/projectList',
     method: 'get',
     params
   })

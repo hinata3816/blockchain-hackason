@@ -7,11 +7,8 @@
                         <el-input v-model="form.name" placeholder="请输入项目名称"></el-input>
                     </el-form-item>
                     <el-form-item label="活动性质">
-                        <el-checkbox-group v-model="form.type">
+                        <el-checkbox-group v-model="form.type" >
                         <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-                        <el-checkbox label="地推活动" name="type"></el-checkbox>
-                        <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-                        <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
                         </el-checkbox-group>
                     </el-form-item>
                     <el-form-item>
