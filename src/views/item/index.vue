@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 只有主催者可以点击添加项目 -->
     <el-card  style="margin-bottom: 20px;">
-      <div v-if="token && roles == 'sponsor'" class="btns"><el-button type="primary" size="small" class="m-b-20" @click="$router.push(`add`)">添加项目</el-button></div>
+      <div v-if="token && roles == 'sponsor'" class="btns"><el-button type="primary" size="small" class="m-b-20" @click="$router.push(`add`)">プロジェクト追加</el-button></div>
       <Table :dataSource="getList">
         <el-table
           slot-scope="data"

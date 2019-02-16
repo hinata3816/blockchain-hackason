@@ -2,8 +2,8 @@
   <div class="app-container">
     <el-card style="margin-bottom: 20px;">
       <div class="btns">
-        <el-button v-if="roles == 'investigator' && this.projectInfo.status == 0" type="primary" size="small" class="m-b-20" @click="handleAddFileBtnClick">添加材料</el-button>
-        <el-button v-else-if="roles == 'sponsor' && this.projectInfo.status == 0" type="primary" size="small" class="m-b-20" @click="handlePublicProjectBtnClick">结束并公开项目</el-button>
+        <el-button v-if="roles == 'investigator' && this.projectInfo.status == 0" type="primary" size="small" class="m-b-20" @click="handleAddFileBtnClick">ファイル追加</el-button>
+        <el-button v-else-if="roles == 'sponsor' && this.projectInfo.status == 0" type="primary" size="small" class="m-b-20" @click="handlePublicProjectBtnClick">プロジェクトを終了及び公開</el-button>
         <uploadDialog ref="uploadDialog" @refresh="refreshList" />
       </div>
       <Table :dataSource="resourcesList" ref="table">

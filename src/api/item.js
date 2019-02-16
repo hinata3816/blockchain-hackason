@@ -10,7 +10,7 @@ export function getList(params) {
 }
 
 /**
- * 添加项目
+ * プロジェクト追加
  */
 export function addProject(params) {
   return request({
