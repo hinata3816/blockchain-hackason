@@ -12,11 +12,11 @@ export function getList(params) {
 /**
  * 添加项目
  */
-export function addProject(data) {
+export function addProject(params) {
   return request({
     url: '/Project/addProject',
-    method: 'post',
-    data
+    method: 'get',
+    params
   })
 }
 
@@ -33,26 +33,28 @@ export function getUserList() {
 /**
  * 添加文件
  */
-export function addFile(data) {
+export function addFile(params) {
   return request({
     url: '/Project/operateHash',
-    method: 'post',
-    data
+    method: 'get',
+    params
   })
 }
 
 /**
  * 验证项目的key
  */
-export function verifyKey(data) {
+export function verifyKey(params) {
   return request({
     url: '/Project/verifyKey',
-    method: 'post',
-    data})
-  }
-  /**
-   * 获取用户列表
-   */
+    method: 'get',
+    params
+  })
+}
+
+/**
+ * 获取用户列表
+ */
 export function resourcesList(params) {
   return request({
     url: '/Project/resourcesList',
@@ -64,10 +66,10 @@ export function resourcesList(params) {
 /**
  * 公开项目
  */
-export function projectPublic(data) {
+export function projectPublic(params) {
   return request({
     url: '/Project/projectPublic',
-    method: 'post',
-    data
+    method: 'get',
+    params
   })
 }

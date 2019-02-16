@@ -6,8 +6,8 @@ import request from '@/utils/request'
 export function login(loginName, password) {
   return request({
     url: '/User/login',
-    method: 'post',
-    data: {
+    method: 'get',
+    params: {
       loginName,
       password
     }
@@ -28,6 +28,6 @@ export function getInfo(token) {
 export function logout() {
   return request({
     url: '/User/logout',
-    method: 'post'
+    method: 'get'
   })
 }

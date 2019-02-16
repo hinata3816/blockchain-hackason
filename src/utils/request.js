@@ -5,8 +5,11 @@ import { getToken } from '@/utils/auth'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: '/project01/public/index.php/index',
-  timeout: 10000 // 请求超时时间
+  baseURL: 'http://newtest.mboxone.com/project01/public/index.php/index',
+  timeout: 100000, // 请求超时时间
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+  }
 })
 
 // request拦截器
