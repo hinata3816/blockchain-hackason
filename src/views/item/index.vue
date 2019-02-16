@@ -11,12 +11,12 @@
           border
           fit
           highlight-current-row>
-          <el-table-column align="center" label="序号" width="50">
+          <el-table-column align="center" label="No." width="50">
             <template slot-scope="scope">
               {{ scope.$index }}
             </template>
           </el-table-column>
-          <el-table-column label="项目名称" align="center">
+          <el-table-column label="プロジェクト名" align="center">
             <template slot-scope="scope">
               {{ scope.row.project_name }}
             </template>
@@ -32,18 +32,18 @@
               <span>{{ scope.row.loginName }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="状态" align="center">
+          <el-table-column label="ステータス" align="center">
             <template slot-scope="scope">
-              <span v-if = "scope.row.status == 0">完善资料中</span>
-              <span v-else-if = "scope.row.status == 1">公开</span>
-              <span v-else>未知状态</span>
+              <span v-if = "scope.row.status == 0">進行中</span>
+              <span v-else-if = "scope.row.status == 1">公開</span>
+              <span v-else>不明</span>
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center">
               <template slot-scope="scope">
-                <el-button  v-if="roles == 'investigator'" type="text" size="small" @click="open(scope.row.id)">查看</el-button>
+                <el-button  v-if="roles == 'investigator'" type="text" size="small" @click="open(scope.row.id)">プレビュー</el-button>
                 <router-link v-else target="_blank" :to="{ name: 'itemDetail', params: { id: scope.row.id }}">
-                  <el-button  type="text" size="small" >查看</el-button>
+                  <el-button  type="text" size="small" >プレビュー</el-button>
                 </router-link>
               </template>
           </el-table-column>
@@ -97,16 +97,16 @@ export default {
       })
     },
     open(id) {
-      this.$prompt('请输入项目Key', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$prompt('プロジェクトキーを入力してください。', '提示', {
+        confirmButtonText: '確定',
+        cancelButtonText: 'キャンセル',
       }).then(({ value }) => {
         const data = {
           projectId: id,
           key: value
         }
         if (!value) {
-          return this.$message.error('请输入项目key！')
+          return this.$message.error('プロジェクトキーを入力してください。！')
         }
         verifyKey(data).then((res) => {
           if (Number(res.code) === 0) {

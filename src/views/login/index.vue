@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-      <h3 class="title">通证云</h3>
+      <h3 class="title">トークン</h3>
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -25,7 +25,7 @@
       </el-form-item>
       <el-form-item>
         <el-button :loading="loading" type="primary" style="width:100%;" @click.native.prevent="handleLogin">
-          登录
+          ログイン
         </el-button>
       </el-form-item>
     </el-form>
@@ -40,14 +40,14 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
+        callback(new Error('正しいユーザー名を入力してください。'))
       } else {
         callback()
       }
     }
     const validatePass = (rule, value, callback) => {
       if (value.length < 5) {
-        callback(new Error('密码不能小于5位'))
+        callback(new Error('パスワードは5桁以上のものを入力してください。'))
       } else {
         callback()
       }

@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 /**
- * 登录
+ * ログイン
  */
 export function login(loginName, password) {
   return request({
@@ -23,7 +23,7 @@ export function getInfo(token) {
 }
 
 /**
- * 退出登录
+ * ログアウト
  */
 export function logout() {
   return request({

@@ -31,7 +31,7 @@ export function getUserList() {
 }
 
 /**
- * 添加文件
+ * ファイル追加
  */
 export function addFile(params) {
   return request({

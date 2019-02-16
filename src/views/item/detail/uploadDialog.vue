@@ -3,26 +3,26 @@
     <el-form ref="form" :model="form" label-width="80px">
       <el-dialog
         :visible.sync="dialogVisible"
-        title="添加文件"
+        title="ファイル追加"
         width="30%">
-        <el-form-item label="上传文件">
-          <el-button v-if="!form.file.name" type="primary" size="small" @click="handleAddFileBtnClick">上传</el-button>
+        <el-form-item label="アップロード">
+          <el-button v-if="!form.file.name" type="primary" size="small" @click="handleAddFileBtnClick">アップロード</el-button>
           <span v-else @click="handleAddFileBtnClick" style="cursor: pointer">{{form.file.name}}</span>
           <input type="file" @change="handleFileInputChange" ref="fileInput" style="display: none">
         </el-form-item>
-        <el-form-item label="类型">
+        <el-form-item label="種類">
           <el-radio-group v-model="form.type">
-            <el-radio label="0">研究笔记</el-radio>
-            <el-radio label="1">研究数据</el-radio>
-            <el-radio label="2">操作履历</el-radio>
+            <el-radio label="0">研究ノート</el-radio>
+            <el-radio label="1">研究データ</el-radio>
+            <el-radio label="2">操作履歴</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="活动形式" prop="desc">
+        <el-form-item label="アクティビティタイプ" prop="desc">
           <el-input type="textarea" v-model="form.desc" :autosize="{ minRows: 4, maxRows: 8}"></el-input>
         </el-form-item>
         <span slot="footer" class="dialog-footer">
-          <el-button size="small" @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" size="small" @click="onSubmit">确 定</el-button>
+          <el-button size="small" @click="dialogVisible = false">キャンセル</el-button>
+          <el-button type="primary" size="small" @click="onSubmit">OK</el-button>
         </span>
       </el-dialog>
     </el-form>
@@ -60,13 +60,13 @@ export default {
         projectId: this.$route.params.id
       }
       if (!data.hash) {
-        return this.$message.error('请上传文件！')
+        return this.$message.error('ファイルをアップロードしてください！')
       }
       if (!data.type) {
-        return this.$message.error('请选择文件类型！')
+        return this.$message.error('ファイルの種類を選択してください！')
       }
       if (!data.description) {
-        return this.$message.error('请输入文件描述！')
+        return this.$message.error('ファイルの説明を入力してください！')
       }
       const res = await addFile(data)
       if (res.code === 0) {
@@ -79,7 +79,7 @@ export default {
         this.$emit('refresh')
       }
     },
-    // 上传文件
+    // アップロード
     handleAddFileBtnClick() {
       this.$refs.fileInput.click()
     },
