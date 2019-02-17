@@ -6,7 +6,7 @@
           <el-form-item label="プロジェクト名">
             <el-input v-model="form.name" placeholder="请输入プロジェクト名" />
           </el-form-item>
-          <el-form-item label="活動種類">
+          <el-form-item label="参加メンバー">
             <el-checkbox-group v-model="form.type">
               <el-checkbox v-for="(item, index) in userList" :label="item.id" :key="index">{{ item.login_name }}</el-checkbox>
             </el-checkbox-group>
