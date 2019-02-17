@@ -10,7 +10,7 @@ export function getList(params) {
 }
 
 /**
- * 添加项目
+ * プロジェクト追加
  */
 export function addProject(params) {
   return request({
@@ -31,7 +31,7 @@ export function getUserList() {
 }
 
 /**
- * 添加文件
+ * ファイル追加
  */
 export function addFile(params) {
   return request({

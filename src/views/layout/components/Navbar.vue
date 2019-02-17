@@ -10,16 +10,16 @@
       <el-dropdown-menu slot="dropdown" class="user-dropdown">
         <router-link class="inlineBlock" to="/">
           <el-dropdown-item>
-            首页
+            トップページ
           </el-dropdown-item>
         </router-link>
         <el-dropdown-item divided>
-          <span style="display:block;" @click="logout">退出登录</span>
+          <span style="display:block;" @click="logout">ログアウト</span>
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
     <div v-else class="avatar-container avatar-wrapper" style="cursor: pointer;" @click="$router.push('/login')">
-      登录
+      ログイン
     </div>
   </el-menu>
 </template>
